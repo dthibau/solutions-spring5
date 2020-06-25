@@ -8,6 +8,5 @@ import reactor.core.publisher.Mono;
 public interface AccountCrudRepository  extends ReactiveCrudRepository<Account, String> {
 
 	Flux<Account> findAllByValue(Double value);
-	
     Mono<Account> findFirstByOwner(Mono<String> owner);
 }

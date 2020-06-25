@@ -39,9 +39,9 @@ public class ReactiveMongoApplication implements CommandLineRunner {
 
 		// save a couple of customers
 		accountCrudRepository.save(new Account(null, "Bill", 12.3)).block();
-		accountCrudRepository.save(new Account(null, "Mary", 13.3)).block();
+		accountCrudRepository.save(new Account(null, "Mary", 13.3)).subscribe(a -> System.out.println(a));
 		
-		accountCrudRepository.saveAll(Flux.just(new Account(null, "David", 13.3))).blockLast();
+		accountCrudRepository.saveAll(Flux.just(new Account(null, "David", 13.3))).subscribe();
 
 		System.out.println("Playng with Repository");
 		System.out.println("----------------------");
@@ -74,6 +74,11 @@ public class ReactiveMongoApplication implements CommandLineRunner {
 		// fetch all accounts
 		accountService.findAll().subscribe(a -> {
 			System.out.println("findAll():" + a);
+			}
+		);
+		
+		accountService.findByValue(12.3).subscribe(a -> {
+			System.out.println("findByValue():" + a);
 			}
 		);
 			

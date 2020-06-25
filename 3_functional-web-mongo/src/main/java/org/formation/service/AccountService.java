@@ -3,8 +3,6 @@ package org.formation.service;
 import org.formation.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import reactor.core.publisher.Flux;
@@ -28,9 +26,4 @@ public class AccountService {
 		return template.save(account);
 	}
 
-	public Flux<Account> findByValue(Double value) {
-		Query query = new Query();
-		query.addCriteria(Criteria.where("value").is(value));
-		return template.find(query,Account.class);
-	}
 }

@@ -10,13 +10,17 @@ public class MainError {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		Hooks.onOperatorDebug();
+//		Hooks.onOperatorDebug();
+//		
+//		MainError.methode4();
+
+//		MainError.methode3();
 		
-		MainError.methode3();
+		MainError.methode3Bis();
+//		
+//		MainError.methode2();
 		
-		MainError.methode2();
-		
-		MainError.methode1();
+//		MainError.methode1();
 		
 	}
 	
@@ -42,7 +46,22 @@ public class MainError {
 		  .onErrorResume(e -> Flux.range(5, 5))
 		  .subscribe(i -> System.out.println(i) );
 	}
-	
+	public static void methode3Bis() {
+		 
+		Flux.range(1, 10)
+		  .log()
+		  .map(MainError::badUncheckedMethod)
+		  .onErrorContinue( (e,f) -> System.err.println(e.getMessage()))
+		  .subscribe(i -> System.out.println(i) );
+	}
+	public static void methode4() {
+		 
+		Flux.range(1, 10)
+		  .log()
+		  .map(MainError::badUncheckedMethod)
+		  .retry(1)
+		  .subscribe(i -> System.out.println(i) );
+	}
 	
 	public static int badUncheckedMethod(int i) {
 		if ( i == 5 )
