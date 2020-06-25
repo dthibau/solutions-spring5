@@ -16,13 +16,13 @@ public class MainApi {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-//		MainApi.methode1();
-//
+		MainApi.methode1();
+
 //		MainApi.methode2();
 		
 //		MainApi.methode3();
 //		
-		MainApi.methode4();
+//		MainApi.methode4();
 //		
 //		MainApi.methode5();
 //		
