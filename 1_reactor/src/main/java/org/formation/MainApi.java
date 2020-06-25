@@ -16,7 +16,7 @@ public class MainApi {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		MainApi.methode1();
+//		MainApi.methode1();
 
 //		MainApi.methode2();
 		
@@ -26,7 +26,7 @@ public class MainApi {
 //		
 //		MainApi.methode5();
 //		
-//		MainApi.methode6();
+		MainApi.methode6();
 		
 	}
 
@@ -37,7 +37,7 @@ public class MainApi {
 		 
 		Flux.range(1, 10)
 		  .log()
-		  .subscribe(elements::add);
+		  .subscribe(c1);
 		
 		System.out.println("Elements : "+elements);
 	}
@@ -97,24 +97,33 @@ public class MainApi {
 			    public void onError(Throwable t) {}
 			 
 			    @Override
-			    public void onComplete() {}	  
+			    public void onComplete() {
+			    	System.out.println("Elements : "+elements);
+			    }	  
 		});
 		
-		System.out.println("Elements : "+elements);
+		
 
 	}
 	
 	public static void methode4() {
 
-		Mono<Integer> result = Flux.range(1, 10).map(i -> 3*i).log().filter(i -> i%2 == 0).log().flatMap(i -> Flux.just(i,-i)).log().reduce((x,y) -> x + y);
+		Mono<Integer> result = Flux.range(1, 10)
+								.map(i -> 3*i)
+//								.log()
+								.filter(i -> i%2 == 0)
+//								.log()
+								.flatMap(i -> Flux.just(i,-i))
+								.log()
+								.reduce((x,y) -> x + y);
 	
 		result.log().subscribe();
 	}
 	
 	public static void methode5() {
-		Flux.just(1, 2, 3, 4)
+		Flux.just(1, 2, 3, 4, 5, 6)
 		  .map(i -> i * 2)
-		  .zipWith(Flux.range(0, Integer.MAX_VALUE), 
+		  .zipWith(Flux.range(0, 2), 
 		    (one, two) -> String.format("First Flux: %d, Second Flux: %d", one, two))
 		  .log()
 		  .subscribe();
@@ -123,6 +132,7 @@ public class MainApi {
 	public static void methode6() {
 		Flux.interval(Duration.ofSeconds(1))
 		  .log()
+//		  .blockLast(Duration.ofSeconds(5));
 		  .subscribe();
 		
 		try {

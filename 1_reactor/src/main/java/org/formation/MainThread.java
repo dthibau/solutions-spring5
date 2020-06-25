@@ -19,21 +19,23 @@ public class MainThread {
 
 		Mono<Integer> result = Flux.range(1, 10).map(i -> 3*i).filter(i -> i%2 == 0).flatMap(i -> Flux.just(i,-i)).log().reduce((x,y) -> x + y);
 	
-		result.log().subscribeOn(Schedulers.parallel()).subscribe();
+		result.log().subscribeOn(Schedulers.parallel())
+//		.subscribe();
+		.block();
 		
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 	public static void methode5() {
 
-		Mono<Integer> result = Flux.range(1, 10).map(i -> 3*i).publishOn(Schedulers.parallel()).filter(i -> i%2 == 0).flatMap(i -> Flux.just(i,-i)).log().reduce((x,y) -> x + y);
+		Mono<Integer> result = Flux.range(1, 10).map(i -> 3*i).log().publishOn(Schedulers.parallel()).filter(i -> i%2 == 0).flatMap(i -> Flux.just(i,-i)).log().reduce((x,y) -> x + y);
 	
-		result.log().subscribeOn(Schedulers.parallel()).subscribe();
+		result.log().subscribe();
 		
 		try {
 			Thread.sleep(2000);
